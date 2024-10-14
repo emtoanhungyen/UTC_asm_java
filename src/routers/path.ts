@@ -5,5 +5,11 @@ export const PATH = {
     CART: '/cart',
     LOGIN: '/login',
     REGISTER: '/register',
-    ADMIN: '/admin'
+    ADMIN: '/admin',
+    ADMIN_CATEGORY: '/admin/category',
+    ADMIN_PRODUCTS: '/admin/products',
+    ADMIN_USERS: '/admin/users',
+    ADD_CATEGORY: '/admin/category/add',
+    ADD_PRODUCTS: '/admin/products/add',
+    ADD_USERS: '/admin/users/add',
 }
