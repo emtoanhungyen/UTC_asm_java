@@ -10,6 +10,11 @@ import Category from "./pages/Catogory";
 import { PATH } from "./routers/path";
 import LayoutAdmin from "./components/admin/LayoutAdmin";
 import AddCategory from "./components/admin/Category/AddCategory";
+import AddProduct from "./components/admin/Products/AddProduct";
+import AddUser from "./components/admin/Users/AddUser";
+import TableCategory from "./components/admin/Category/TableCategory";
+import TableProducts from "./components/admin/Products/TableProducts";
+import TableUsers from "./components/admin/Users/TableUsers";
 
 function App() {
   return (
@@ -22,7 +27,12 @@ function App() {
           <Route path={PATH.CART} element={<Cart />} />
         </Route>
         <Route path={PATH.ADMIN} element={<LayoutAdmin />}>
-          <Route index element={<AddCategory />} />
+          <Route index element={<TableCategory />} />
+          <Route path={PATH.ADD_CATEGORY} element={<AddCategory />} /> 
+          <Route path={PATH.ADMIN_PRODUCTS} element={<TableProducts />} /> 
+          <Route path={PATH.ADD_PRODUCTS} element={<AddProduct />} />
+          <Route path={PATH.ADMIN_USERS} element={<TableUsers />} />
+          <Route path={PATH.ADD_USERS} element={<AddUser />} />
         </Route>
         <Route path={PATH.LOGIN} element={<Login />} />
         <Route path={PATH.REGISTER} element={<Register />} />

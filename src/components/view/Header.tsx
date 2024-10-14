@@ -95,6 +95,12 @@ const Header = (props: Props) => {
                     <i className="fa fa-shopping-cart"></i>
                     <span> Items in cart</span>
                   </a>
+                  <a
+                    href={PATH.ADMIN}
+                    className="btn btn-primary navbar-btn bg-success my-4 ml-3"
+                  >
+                    <span>ADMIN</span>
+                  </a>
                 </div>
               </li>
             </ul>

@@ -32,25 +32,26 @@ const Header = (props: Props) => {
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav">
               <li className="nav-item active">
-                <a className="nav-link" href={PATH.HOME}>
-                  Home
+                <a className="nav-link" href={PATH.ADMIN}>
+                  Admin
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href={PATH.CATEGORY}>
+                <a className="nav-link" href={PATH.ADMIN}>
                   Category
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="">
-                  Product
+                <a className="nav-link" href={PATH.ADMIN_PRODUCTS}>
+                  Products
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="">
-                  About
+                <a className="nav-link" href={PATH.ADMIN_USERS}>
+                  Users
                 </a>
               </li>
+              
             </ul>
           </div>
         </div>

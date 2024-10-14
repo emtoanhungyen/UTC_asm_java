@@ -2,11 +2,22 @@ import React from "react";
 
 type Props = {};
 
-const AddCategory = (props: Props) => {
+const AddUser = (props: Props) => {
   return (
     <div>
       <>
-        <h3>Categories</h3>
+        <h3>Users</h3>
+        <div className="mb-3">
+          <label htmlFor="exampleFormControlInput1" className="form-label">
+            Email
+          </label>
+          <input
+            type="email"
+            className="form-control"
+            id="exampleFormControlInput1"
+            placeholder="Email"
+          />
+        </div>
         <div className="mb-3">
           <label htmlFor="exampleFormControlInput1" className="form-label">
             Name
@@ -20,13 +31,13 @@ const AddCategory = (props: Props) => {
         </div>
         <div className="mb-3">
           <label htmlFor="exampleFormControlInput1" className="form-label">
-            Slug
+            Password
           </label>
           <input
-            type="text"
+            type="password"
             className="form-control"
             id="exampleFormControlInput1"
-            placeholder="Slug"
+            placeholder="Password"
           />
         </div>
         <div className="mb-3">
@@ -40,6 +51,7 @@ const AddCategory = (props: Props) => {
             placeholder="Status"
           />
         </div>
+
         <div>
           <button type="button" className="btn btn-primary mr-2">
             Back
@@ -53,4 +65,4 @@ const AddCategory = (props: Props) => {
   );
 };
 
-export default AddCategory;
+export default AddUser;
