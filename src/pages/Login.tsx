@@ -81,7 +81,7 @@ const Login = (props: Props) => {
                     Sign in
                   </button>
                   <p>
-                    Not a member? <a href="">Register</a>
+                    Not a member? <a href={PATH.REGISTER}>Register</a>
                   </p>
                   <p>or sign in with:</p>
                   <a

@@ -26,14 +26,16 @@ function App() {
           <Route path={PATH.CATEGORY} element={<Category />} />
           <Route path={PATH.CART} element={<Cart />} />
         </Route>
+        {/* Admin */}
         <Route path={PATH.ADMIN} element={<LayoutAdmin />}>
           <Route index element={<TableCategory />} />
-          <Route path={PATH.ADD_CATEGORY} element={<AddCategory />} /> 
-          <Route path={PATH.ADMIN_PRODUCTS} element={<TableProducts />} /> 
+          <Route path={PATH.ADD_CATEGORY} element={<AddCategory />} />
+          <Route path={PATH.ADMIN_PRODUCTS} element={<TableProducts />} />
           <Route path={PATH.ADD_PRODUCTS} element={<AddProduct />} />
           <Route path={PATH.ADMIN_USERS} element={<TableUsers />} />
           <Route path={PATH.ADD_USERS} element={<AddUser />} />
         </Route>
+
         <Route path={PATH.LOGIN} element={<Login />} />
         <Route path={PATH.REGISTER} element={<Register />} />
       </Routes>

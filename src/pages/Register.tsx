@@ -13,11 +13,8 @@ const Register = (props: Props) => {
         </div>
         <main>
           <div className="container">
-            {/*Grid row*/}
             <div className="row d-flex justify-content-center">
-              {/*Grid column*/}
               <div className="col-md-6">
-                {/*Section: Content*/}
                 <section className="mt-4 mb-5">
                   <form action="#!">
                     <div className="form-row">
@@ -142,15 +139,12 @@ const Register = (props: Props) => {
                     <p>
                       By clicking
                       <em>Sign up</em> you agree to our
-                      <a href="">terms of service</a>
+                      <a href=""> terms of service</a>
                     </p>
                   </div>
                 </section>
-                {/*Section: Content*/}
               </div>
-              {/*Grid column*/}
             </div>
-            {/*Grid row*/}
           </div>
         </main>
       </>

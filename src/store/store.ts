@@ -1,13 +1,18 @@
 // store.ts
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './counterSlice';
+import { useSelector } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch } from 'react-redux';
+import categoryReducer from './../redux/categories/categorySlide'; 
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    category: categoryReducer,
   },
 });
-
+export default store;
 // Lấy kiểu của RootState và AppDispatch từ store
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

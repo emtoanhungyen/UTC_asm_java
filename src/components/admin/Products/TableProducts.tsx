@@ -5,6 +5,7 @@ import { PATH } from "../../../routers/path";
 type Props = {};
 
 const TableProducts = (props: Props) => {
+  
   return (
     <div>
       <h3>Products</h3>

@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { fetchCategory } from "../../../redux/categories/action";
+import { ICategory } from "../../../redux/categories/categorySlide";
 import { PATH } from "../../../routers/path";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
 
 type Props = {};
 
 const TableCategory = (props: Props) => {
+  const listCategories = useAppSelector((state) => state.category.category);
+  console.log("a", listCategories);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCategory());
+  }, [dispatch]);
+
   return (
     <div>
       <h3>Category</h3>
@@ -12,9 +24,7 @@ const TableCategory = (props: Props) => {
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Name</th>
             <th scope="col">
               <Link to={PATH.ADD_CATEGORY}>
                 <button type="button" className="btn btn-success">
@@ -25,47 +35,20 @@ const TableCategory = (props: Props) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>
-              <button type="button" className="btn btn-primary mr-2">
-                Update
-              </button>
-              <button type="button" className="btn btn-danger">
-                Remove
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>
-              <button type="button" className="btn btn-primary mr-2">
-                Update
-              </button>
-              <button type="button" className="btn btn-danger">
-                Remove
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colSpan={2}>Larry the Bird</td>
-            <td>@twitter</td>
-            <td>
-              <button type="button" className="btn btn-primary mr-2">
-                Update
-              </button>
-              <button type="button" className="btn btn-danger">
-                Remove
-              </button>
-            </td>
-          </tr>
+          {listCategories.map((item: ICategory, index) => (
+            <tr>
+              <th scope="row">{index + 1}</th>
+              <td>{item.name}</td>
+              <td>
+                <button type="button" className="btn btn-primary mr-2">
+                  Update
+                </button>
+                <button type="button" className="btn btn-danger">
+                  Remove
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
