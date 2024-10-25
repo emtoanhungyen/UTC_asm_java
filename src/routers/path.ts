@@ -10,6 +10,8 @@ export const PATH = {
     ADMIN_PRODUCTS: '/admin/products',
     ADMIN_USERS: '/admin/users',
     ADD_CATEGORY: '/admin/category/add',
+    UPDATE_CATEGORY: '/admin/category/update',
     ADD_PRODUCTS: '/admin/products/add',
+    UPDATE_PRODUCTS: '/admin/products/update',
     ADD_USERS: '/admin/users/add',
 }

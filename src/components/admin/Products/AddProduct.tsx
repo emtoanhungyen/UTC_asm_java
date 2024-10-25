@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import ButtonBack from "../../ButtonBack";
 
 type Props = {};
 
 const AddProduct = (props: Props) => {
+  const Navigation = useNavigate();
   return (
     <div>
       <>
@@ -92,9 +95,7 @@ const AddProduct = (props: Props) => {
         </div>
 
         <div>
-          <button type="button" className="btn btn-primary mr-2">
-            Back
-          </button>
+          <ButtonBack onClick={() => Navigation(-1)} name={"Back"} />
           <button type="button" className="btn btn-success">
             Save
           </button>

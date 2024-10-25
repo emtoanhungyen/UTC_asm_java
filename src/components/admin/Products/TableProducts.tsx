@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { fetchProducts } from "../../../redux/products/action";
+import { IProduct } from "../../../redux/products/productSlide";
 import { PATH } from "../../../routers/path";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
 
 type Props = {};
 
 const TableProducts = (props: Props) => {
-  
+  const dispatch = useAppDispatch();
+  const listProducts = useAppSelector((state) => state.product.products);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
   return (
     <div>
       <h3>Products</h3>
@@ -13,9 +22,12 @@ const TableProducts = (props: Props) => {
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Description</th>
+            <th scope="col">Content</th>
+            <th scope="col">Image</th>
             <th scope="col">
               <Link to={PATH.ADD_PRODUCTS}>
                 <button type="button" className="btn btn-success">
@@ -26,47 +38,25 @@ const TableProducts = (props: Props) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>
-              <button type="button" className="btn btn-primary mr-2">
-                Update
-              </button>
-              <button type="button" className="btn btn-danger">
-                Remove
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>
-              <button type="button" className="btn btn-primary mr-2">
-                Update
-              </button>
-              <button type="button" className="btn btn-danger">
-                Remove
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colSpan={2}>Larry the Bird</td>
-            <td>@twitter</td>
-            <td>
-              <button type="button" className="btn btn-primary mr-2">
-                Update
-              </button>
-              <button type="button" className="btn btn-danger">
-                Remove
-              </button>
-            </td>
-          </tr>
+          {listProducts.map((item: IProduct, index) => (
+            <tr>
+              <th scope="row">{index + 1}</th>
+              <td>{item.name}</td>
+              <td>{item.quantity}</td>
+              <td>{item.price}</td>
+              <td>{item.description}</td>
+              <td>{item.content}</td>
+              <td>{item.image}</td>
+              <td>
+                <button type="button" className="btn btn-primary mr-2">
+                  Update
+                </button>
+                <button type="button" className="btn btn-danger">
+                  Remove
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

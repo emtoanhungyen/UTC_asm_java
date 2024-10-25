@@ -15,6 +15,9 @@ import AddUser from "./components/admin/Users/AddUser";
 import TableCategory from "./components/admin/Category/TableCategory";
 import TableProducts from "./components/admin/Products/TableProducts";
 import TableUsers from "./components/admin/Users/TableUsers";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import EditCategory from "./components/admin/Category/EditCategory";
 
 function App() {
   return (
@@ -32,6 +35,7 @@ function App() {
           <Route path={PATH.ADD_CATEGORY} element={<AddCategory />} />
           <Route path={PATH.ADMIN_PRODUCTS} element={<TableProducts />} />
           <Route path={PATH.ADD_PRODUCTS} element={<AddProduct />} />
+          <Route path={`${PATH.UPDATE_CATEGORY}/:id`} element={<EditCategory />} />
           <Route path={PATH.ADMIN_USERS} element={<TableUsers />} />
           <Route path={PATH.ADD_USERS} element={<AddUser />} />
         </Route>
@@ -39,6 +43,15 @@ function App() {
         <Route path={PATH.LOGIN} element={<Login />} />
         <Route path={PATH.REGISTER} element={<Register />} />
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="colored"
+      />
     </div>
   );
 }
