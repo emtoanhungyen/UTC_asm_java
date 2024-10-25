@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ImgVegetable from "./../../images/vegetable.jpg";
 import ImgFruit from "./../../images/fruit.jpg";
 import ImgRice from "./../../images/rice.jpg";
 import ImgCoffee from "./../../images/coffee.jpg";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { fetchCategory } from "../../redux/categories/action";
+import { ICategory } from "../../redux/categories/categorySlide";
 
 type Props = {};
 
 const Categories = (props: Props) => {
+  const listCategories = useAppSelector((state) => state.category.category);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchCategory());
+  }, [dispatch]);
   return (
     <div className="container">
       <>
@@ -14,62 +22,28 @@ const Categories = (props: Props) => {
           <a href="./products">Categories</a>
         </h3>
         <div className="row mt-5">
-          <div className="col-md-6 col-lg-4 mb-4">
-            <div className="">
-              <div className="view zoom z-depht-2 rounded">
-                <img className="img-fluid" src={ImgVegetable} alt="Sample" />
-                <a href="#!" className="text-success">
-                  <div className="mask rgba-stylish-slight waves-effect waves-light">
-                    <div className="d-flex align-item-end h-100 p-3">
-                      <h5 className="text-success mb-0">Vegetables</h5>
-                    </div>
+          {listCategories.map((item: ICategory, index) => (
+            <>
+              <div className="col-md-6 col-lg-4 mb-4">
+                <div className="">
+                  <div className="view zoom z-depht-2 rounded">
+                    <img
+                      className="img-fluid"
+                      src={ImgVegetable}
+                      alt="Sample"
+                    />
+                    <a href="#!" className="text-success">
+                      <div className="mask rgba-stylish-slight waves-effect waves-light">
+                        <div className="d-flex align-item-end h-100 p-3">
+                          <h5 className="text-success mb-0">{item.name}</h5>
+                        </div>
+                      </div>
+                    </a>
                   </div>
-                </a>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="col-md-6 col-lg-4 mb-4">
-            <div className="">
-              <div className="view zoom z-depht-2 rounded">
-                <img className="img-fluid" src={ImgFruit} alt="Sample" />
-                <a href="#!" className="text-success">
-                  <div className="mask rgba-stylish-slight waves-effect waves-light">
-                    <div className="d-flex align-item-end h-100 p-3">
-                      <h5 className="text-success mb-0">Fruits</h5>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6 col-lg-4 mb-4">
-            <div className="">
-              <div className="view zoom z-depht-2 rounded">
-                <img className="img-fluid" src={ImgRice} alt="Sample" />
-                <a href="#!" className="text-success">
-                  <div className="mask rgba-stylish-slight waves-effect waves-light">
-                    <div className="d-flex align-item-end h-100 p-3">
-                      <h5 className="text-success mb-0">Rice</h5>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6 col-lg-4 mb-4">
-            <div className="">
-              <div className="view zoom z-depht-2 rounded">
-                <img className="img-fluid" src={ImgCoffee} alt="Sample" />
-                <a href="#!" className="text-success">
-                  <div className="mask rgba-stylish-slight waves-effect waves-light">
-                    <div className="d-flex align-item-end h-100 p-3">
-                      <h5 className="text-success mb-0">Coffee</h5>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
+            </>
+          ))}
         </div>
       </>
     </div>

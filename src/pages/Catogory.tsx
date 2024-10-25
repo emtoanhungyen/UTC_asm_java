@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ImgCafe1 from "./../images/cafe.jpg";
 import ImgCafe2 from "./../images/cafe2.jpg";
 import ImgCafe5 from "./../images/cafe5.jpg";
@@ -8,9 +8,17 @@ import ImgB3 from "./../images/b3.jpg";
 import ImgB4 from "./../images/b4.jpg";
 
 import Slider from "../components/view/Slider";
+import { useAppDispatch, useAppSelector } from "../store/store";
+import { fetchCategory } from "../redux/categories/action";
+import { ICategory } from "../redux/categories/categorySlide";
 type Props = {};
 
 const Category = (props: Props) => {
+  const listCategories = useAppSelector((state) => state.category.category);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchCategory());
+  }, [dispatch]);
   return (
     <div className="container">
       <div className="row">
@@ -28,37 +36,23 @@ const Category = (props: Props) => {
             </ul>
           </nav>
         </div>
+
         <div className="col-lg-3 left">
-          {" "}
           <div className="card sidebar-menu ">
             <div className="card-header">
               <h3 className="h4 card-title active a">Categories</h3>
             </div>
             <div className="card-body">
               <ul className="nav nav-pills flex-column category-menu">
-                <li>
-                  <a href="" className="nav-link text-success">
-                    Coffe <span className="badge badge-secondary">8</span>
-                  </a>
-                  <ul className="list-unstyled">
+                <ul className="list-unstyled">
+                  {listCategories.map((item: ICategory, index) => (
                     <li>
                       <a href="" className="nav-link text-success">
-                        Fruits <span className="badge badge-secondary">10</span>
+                        {item.name} <span className="badge badge-secondary">10</span>
                       </a>
                     </li>
-                    <li>
-                      <a href="" className="nav-link text-success">
-                        Vegetables{" "}
-                        <span className="badge badge-secondary">7</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="" className="nav-link text-success">
-                        Rice <span className="badge badge-secondary">4</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+                  ))}
+                </ul>
               </ul>
             </div>
           </div>
@@ -67,7 +61,7 @@ const Category = (props: Props) => {
           <div>
             <Slider />
           </div>
-          
+
           <div className="row my-4">
             <div className="col-lg-4 col-md-6 mb-4">
               <div className="card h-100">
