@@ -9,7 +9,8 @@ export const fetchCategory = createAsyncThunk("category/fetch", async () => {
 export const addCategory = createAsyncThunk(
   "category/add",
   async (data: ICategory) => {
-    const response = await instance.post("category/create", data);
+    await instance.post("category/create", data);
+    const response = await instance.get("category/all");
     return response.data;
   }
 );

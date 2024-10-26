@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addProducts } from "../products/action";
 import {
+  addCategory,
   fetchCategory,
   findCategoryById,
   removeCategory,
@@ -45,11 +45,11 @@ const categorySlice = createSlice({
       .addCase(fetchCategory.rejected, (state, action) => {
         toast.error("Errors");
       })
-      .addCase(addProducts.pending, (state, action) => {})
-      .addCase(addProducts.fulfilled, (state, action) => {
-        console.log("action", action);
+      .addCase(addCategory.pending, (state, action) => {})
+      .addCase(addCategory.fulfilled, (state, action) => {
+        state.category = action.payload.payload;
       })
-      .addCase(addProducts.rejected, (state, action) => {
+      .addCase(addCategory.rejected, (state, action) => {
         toast.error("Errors");
       })
       .addCase(removeCategory.pending, (state, action) => {})

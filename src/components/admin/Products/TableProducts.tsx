@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchProducts } from "../../../redux/products/action";
+import { fetchProducts, removeProduct } from "../../../redux/products/action";
 import { IProduct } from "../../../redux/products/productSlide";
 import { PATH } from "../../../routers/path";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
+import Confirm from "../../Confirm";
 
 type Props = {};
 
@@ -11,9 +12,24 @@ const TableProducts = (props: Props) => {
   const dispatch = useAppDispatch();
   const listProducts = useAppSelector((state) => state.product.products);
 
+  const [showModal, setShowModal] = useState(false);
+  const [idRemove, setIdRemove] = useState<number>();
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = (id?: number) => {
+    setIdRemove(id);
+    return setShowModal(true);
+  };
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+
+  const handleRemove = (id?: number) => {
+    console.log("id", id);
+    setShowModal(false);
+    if (id) dispatch(removeProduct(id));
+  };
 
   return (
     <div>
@@ -46,12 +62,22 @@ const TableProducts = (props: Props) => {
               <td>{item.price}</td>
               <td>{item.description}</td>
               <td>{item.content}</td>
-              <td>{item.image}</td>
+              <td>
+                <img
+                  src={item.image}
+                  alt="image"
+                  style={{ width: "50px", height: "50px", objectFit: "cover", borderRadius: "8px" }} 
+                />
+              </td>
               <td>
                 <button type="button" className="btn btn-primary mr-2">
                   Update
                 </button>
-                <button type="button" className="btn btn-danger">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => handleShow(item.id)}
+                >
                   Remove
                 </button>
               </td>
@@ -59,6 +85,14 @@ const TableProducts = (props: Props) => {
           ))}
         </tbody>
       </table>
+
+      <Confirm
+        show={showModal}
+        body={"Bạn có chắc chắn muốn xóa?"}
+        title={"Xóa product"}
+        handleClose={handleClose}
+        handleConfirm={() => handleRemove(idRemove)}
+      />
     </div>
   );
 };

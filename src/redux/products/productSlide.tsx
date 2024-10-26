@@ -1,16 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchProducts } from "./action";
+import { addProducts, fetchProducts, removeProduct } from "./action";
+import { toast } from "react-toastify";
 
 export interface IProduct {
-  id: number;
+  id?: number;
   content: string;
   description: string;
   image: string;
   name: string;
   price: number;
   quantity: number;
-  status: boolean;
-  category_id: number;
+  status?: boolean;
+  categoryId: number;
 }
 interface ProductState {
   products: IProduct[];
@@ -34,7 +35,23 @@ const productSlice = createSlice({
         state.products = action.payload.payload;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
-        console.log("rejected");
+        toast.error("Errors");
+      })
+      .addCase(addProducts.pending, (state, action) => {})
+      .addCase(addProducts.fulfilled, (state, action) => {
+        state.products = action.payload.payload;
+        toast.success("Created");
+      })
+      .addCase(addProducts.rejected, (state, action) => {
+        toast.error("Errors");
+      })
+      .addCase(removeProduct.pending, (state, action) => {})
+      .addCase(removeProduct.fulfilled, (state, action) => {
+        state.products = action.payload.payload;
+        toast.success("Remove is success");
+      })
+      .addCase(removeProduct.rejected, (state, action) => {
+        toast.error("Errors");
       });
   },
 });
