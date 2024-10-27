@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { fetchProducts, removeProduct } from "../../../redux/products/action";
 import { IProduct } from "../../../redux/products/productSlide";
 import { PATH } from "../../../routers/path";
@@ -66,13 +66,20 @@ const TableProducts = (props: Props) => {
                 <img
                   src={item.image}
                   alt="image"
-                  style={{ width: "50px", height: "50px", objectFit: "cover", borderRadius: "8px" }} 
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                  }}
                 />
               </td>
               <td>
-                <button type="button" className="btn btn-primary mr-2">
-                  Update
-                </button>
+                <NavLink to={`${PATH.UPDATE_PRODUCTS}/${item.id}`}>
+                  <button type="button" className="btn btn-primary mr-2">
+                    Update
+                  </button>
+                </NavLink>
                 <button
                   type="button"
                   className="btn btn-danger"

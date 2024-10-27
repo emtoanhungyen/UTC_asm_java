@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addProducts, fetchProducts, removeProduct } from "./action";
+import {
+  addProducts,
+  fetchProducts,
+  findProductById,
+  removeProduct,
+  updateProduct,
+} from "./action";
 import { toast } from "react-toastify";
 
 export interface IProduct {
@@ -15,11 +21,23 @@ export interface IProduct {
 }
 interface ProductState {
   products: IProduct[];
+  productDetail: IProduct;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: null;
 }
 const initialState: ProductState = {
   products: [],
+  productDetail: {
+    name: "",
+    status: true,
+    categoryId: 0,
+    content: "",
+    description: "",
+    image: "",
+    price: 0,
+    quantity: 0,
+    id: 0,
+  },
   status: "idle",
   error: null,
 };
@@ -51,6 +69,20 @@ const productSlice = createSlice({
         toast.success("Remove is success");
       })
       .addCase(removeProduct.rejected, (state, action) => {
+        toast.error("Errors");
+      })
+      .addCase(findProductById.pending, (state, action) => {})
+      .addCase(findProductById.fulfilled, (state, action) => {
+        state.productDetail = action.payload.payload;
+      })
+      .addCase(findProductById.rejected, (state, action) => {
+        toast.error("Errors");
+      })
+      .addCase(updateProduct.pending, (state, action) => {})
+      .addCase(updateProduct.fulfilled, (state, action) => {
+        state.products = action.payload.payload;
+      })
+      .addCase(updateProduct.rejected, (state, action) => {
         toast.error("Errors");
       });
   },

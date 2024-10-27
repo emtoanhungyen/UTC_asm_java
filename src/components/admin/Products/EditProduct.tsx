@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import ButtonBack from "../../ButtonBack";
 import { toast } from "react-toastify";
 import { ICategory } from "../../../redux/categories/categorySlide";
 import { fetchCategory } from "../../../redux/categories/action";
-import { addProducts } from "../../../redux/products/action";
+import { addProducts, findProductById } from "../../../redux/products/action";
 import axios from "axios";
 
 type Props = {};
@@ -25,27 +25,36 @@ interface IFormProducts {
 const cloudinaryUploadPreset = "java_shop";
 const cloudinaryCloudName = "dpu8oqhdq";
 
-const AddProduct = (props: Props) => {
+const EditProduct = (props: Props) => {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm<IFormProducts>();
   const Navigation = useNavigate();
   const dispatch = useAppDispatch();
   const listCategories = useAppSelector((state) => state.category.category);
+  const productDetail = useAppSelector((state) => state.product.productDetail);
+
+  const { id } = useParams();
 
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-  const [imageName, setImageName] = useState("");
 
   useEffect(() => {
+    if (id) dispatch(findProductById(Number(id)));
     dispatch(fetchCategory());
-  }, [dispatch]);
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (productDetail) reset(productDetail);
+    setImageUrl(productDetail.image);
+  }, [productDetail, reset]);
 
   const onSubmit = handleSubmit((data: IFormProducts) => {
     try {
-      dispatch(addProducts({ ...data, status: true, image: imageUrl }));
+      dispatch(addProducts({ ...data, image: imageUrl }));
       Navigation(-1);
     } catch (error) {
       console.log(error);
@@ -69,7 +78,6 @@ const AddProduct = (props: Props) => {
 
       const { url, public_id } = response.data;
       setImageUrl(url);
-      setImageName(public_id);
     } catch (error) {
       toast.success("Error uploading file");
       console.error(error);
@@ -82,7 +90,7 @@ const AddProduct = (props: Props) => {
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <h3>Products</h3>
+        <h3>Update Products</h3>
         <div className="mb-3">
           <div className="mb-3">
             <label htmlFor="exampleFormControlInput1" className="form-label">
@@ -160,6 +168,7 @@ const AddProduct = (props: Props) => {
             <div className="invalid-feedback">{errors.name.message}</div>
           )}
         </div>
+
         <div className="mb-3">
           <label htmlFor="formFile" className="form-label">
             Images
@@ -168,6 +177,7 @@ const AddProduct = (props: Props) => {
             className={`form-control ${errors.name ? "is-invalid" : ""}`}
             type="file"
             id="formFile"
+            {...register("image")}
             onChange={handleFileChange}
           />
           <div className="container">
@@ -223,4 +233,4 @@ const AddProduct = (props: Props) => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

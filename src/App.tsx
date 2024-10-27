@@ -18,6 +18,7 @@ import TableUsers from "./components/admin/Users/TableUsers";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import EditCategory from "./components/admin/Category/EditCategory";
+import EditProduct from "./components/admin/Products/EditProduct";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path={PATH.ADMIN_PRODUCTS} element={<TableProducts />} />
           <Route path={PATH.ADD_PRODUCTS} element={<AddProduct />} />
           <Route path={`${PATH.UPDATE_CATEGORY}/:id`} element={<EditCategory />} />
+          <Route path={`${PATH.UPDATE_PRODUCTS}/:id`} element={<EditProduct />} />
           <Route path={PATH.ADMIN_USERS} element={<TableUsers />} />
           <Route path={PATH.ADD_USERS} element={<AddUser />} />
         </Route>
