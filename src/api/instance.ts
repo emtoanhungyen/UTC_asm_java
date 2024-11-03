@@ -11,6 +11,8 @@ instance.interceptors.request.use(
         const token = localStorage.getItem("token");
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
+            console.log("token: " +config.headers.Authorization)
+
         }
         return config;
     },
@@ -24,4 +26,3 @@ export const authInstance = axios.create({
     baseURL: config.apiBaseURL,
 });
 
-// No interceptors added to `authInstance`, so it won’t include the Authorization header
