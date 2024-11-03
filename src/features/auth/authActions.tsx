@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { instance } from "../../api/instance";
+import {authInstance, instance} from "../../api/instance";
 import { RegisterRequest, LoginRequest, AuthResponse } from "./authTypes";
 import axios, { AxiosError } from "axios"; // Import AxiosError
 
@@ -8,7 +8,7 @@ export const registerUser = createAsyncThunk(
     "auth/register",
     async (data: RegisterRequest, { rejectWithValue }) => {
         try {
-            const response = await instance.post<AuthResponse>("/api/auth/register", data);
+            const response = await authInstance.post<AuthResponse>("/api/auth/register", data);
             return response.data;
         } catch (error) {
             const axiosError = error as AxiosError; // Cast to AxiosError
@@ -19,7 +19,7 @@ export const registerUser = createAsyncThunk(
 
 // Login
 export const loginUser = createAsyncThunk('auth/loginUser', async (loginData: LoginRequest) => {
-    const response = await instance.post('/api/auth/login', loginData);
+    const response = await authInstance.post('/api/auth/login', loginData);
 
     // Assuming the API response format is as described
     const { status, payload, errors, metadata } = response.data;

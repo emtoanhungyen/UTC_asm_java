@@ -41,11 +41,15 @@ const Login = (props: Props) => {
                 // Redirect to home on successful login
                 navigate(PATH.HOME);
             } else {
+
+                console.log(loginData);
+
                 // Handle potential errors from the result
                 console.error("Login failed:", errors);
                 // Optionally, display an error message
             }
         } catch (err) {
+            console.log(loginData);
             console.error('Login failed:', err);
             // Handle errors if needed (already handled by Redux)
         }
