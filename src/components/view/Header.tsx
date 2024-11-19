@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { logoutUser } from "../../features/auth/authActions";
 import { PATH } from "../../routers/path";
+import { useAppDispatch, useAppSelector } from "../../store/store";
 
 type Props = {};
 
 const Header = (props: Props) => {
+  const dispatch = useAppDispatch();
+  const role = localStorage.getItem("role");
+  console.log(role);
+
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  console.log("isLoggedIn", isLoggedIn);
+
+  const logout = () => {
+    console.log("logout");
+    dispatch(logoutUser());
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -76,11 +90,21 @@ const Header = (props: Props) => {
             id="navbarNavDropdown"
           >
             <ul className="navbar-nav">
-              <li className="nav-item pt-4">
-                <Link className="nav-link" to="/login">
-                  Sign in
-                </Link>
-              </li> 
+              {role ? (
+                <li className="nav-item pt-4">
+                  <Link className="nav-link" to="" onClick={() => logout()}>
+                    Logout
+                  </Link>
+                </li>
+              ) : (
+                <>
+                  <li className="nav-item pt-4">
+                    <Link className="nav-link" to="/login">
+                      Sign in
+                    </Link>
+                  </li>
+                </>
+              )}
               <li className="nav-item pt-4">
                 <Link className="nav-link" to="/register">
                   Sign up
@@ -95,12 +119,16 @@ const Header = (props: Props) => {
                     <i className="fa fa-shopping-cart"></i>
                     <span> Items in cart</span>
                   </a>
-                  <a
-                    href={PATH.ADMIN}
-                    className="btn btn-primary navbar-btn bg-success my-4 ml-3"
-                  >
-                    <span>ADMIN</span>
-                  </a>
+                  {role === "ADMIN" ? (
+                    <a
+                      href={PATH.ADMIN}
+                      className="btn btn-primary navbar-btn bg-success my-4 ml-3"
+                    >
+                      <span>ADMIN</span>
+                    </a>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </li>
             </ul>
