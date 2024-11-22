@@ -12,8 +12,8 @@ const Home = (props: Props) => {
     <div>
       <Slider />
       <Categories />
-      <Bestseller />
       <NewProduct />
+      <Bestseller />
       <Information />
     </div>
   );

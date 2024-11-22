@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../../features/auth/authActions";
 import { PATH } from "../../routers/path";
@@ -6,8 +7,23 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 
 type Props = {};
 
+interface FormData {
+  search: string;
+}
+
 const Header = (props: Props) => {
+  const [valueSearch, setValueSearch] = useState<string>("");
+  const { handleSubmit, register } = useForm<FormData>();
   const dispatch = useAppDispatch();
+
+  const handleValueSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValueSearch(event.target.value);
+  };
+
+  const onSubmit = handleSubmit((data: FormData) => {
+    console.log("search", data);
+    // dispatch(get)
+  });
   const role = localStorage.getItem("role");
   console.log(role);
 
@@ -18,7 +34,6 @@ const Header = (props: Props) => {
     console.log("logout");
     dispatch(logoutUser());
   };
-
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -69,12 +84,15 @@ const Header = (props: Props) => {
           </div>
 
           <div className="collapse navbar-collapse justify-content-end">
-            <form className="form-inline">
+            <form className="form-inline" onSubmit={onSubmit}>
               <input
                 className="form-control mr-sm-2"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                value={valueSearch}
+                {...register("search")}
+                onChange={handleValueSearch}
               />
               <button
                 className="btn btn-outline-success my-1 my-sm-0"
@@ -90,21 +108,23 @@ const Header = (props: Props) => {
             id="navbarNavDropdown"
           >
             <ul className="navbar-nav">
-              {role ? (
-                <li className="nav-item pt-4">
-                  <Link className="nav-link" to="" onClick={() => logout()}>
-                    Logout
-                  </Link>
-                </li>
-              ) : (
-                <>
+              <li className="nav-item pt-4">
+                {role ? (
                   <li className="nav-item pt-4">
-                    <Link className="nav-link" to="/login">
-                      Sign in
+                    <Link className="nav-link" to="" onClick={() => logout()}>
+                      Logout
                     </Link>
                   </li>
-                </>
-              )}
+                ) : (
+                  <>
+                    <li className="nav-item pt-4">
+                      <Link className="nav-link" to="/login">
+                        Sign in
+                      </Link>
+                    </li>
+                  </>
+                )}
+              </li>
               <li className="nav-item pt-4">
                 <Link className="nav-link" to="/register">
                   Sign up

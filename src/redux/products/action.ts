@@ -46,3 +46,26 @@ export const updateProduct = createAsyncThunk(
     }
   }
 );
+
+export const getProductByCategory = createAsyncThunk(
+  "product/getProductByCategory",
+  async (id: number) => {
+    try {
+      const response = await instance.get(`product/category/${id}`);
+      return response.data;
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+);
+export const searchProduct = createAsyncThunk(
+  "product/search",
+  async (search: string) => {
+    try {
+      const response = await instance.get(`product/search/${search}`);
+      return response.data;
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+);

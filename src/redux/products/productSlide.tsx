@@ -3,7 +3,9 @@ import {
   addProducts,
   fetchProducts,
   findProductById,
+  getProductByCategory,
   removeProduct,
+  searchProduct,
   updateProduct,
 } from "./action";
 import { toast } from "react-toastify";
@@ -83,6 +85,20 @@ const productSlice = createSlice({
         state.products = action.payload.payload;
       })
       .addCase(updateProduct.rejected, (state, action) => {
+        toast.error("Errors");
+      })
+      .addCase(getProductByCategory.pending, (state, action) => {})
+      .addCase(getProductByCategory.fulfilled, (state, action) => {
+        state.products = action.payload.payload;
+      })
+      .addCase(getProductByCategory.rejected, (state, action) => {
+        toast.error("Errors");
+      })
+      .addCase(searchProduct.pending, (state, action) => {})
+      .addCase(searchProduct.fulfilled, (state, action) => {
+        // state.products = action.payload.payload;
+      })
+      .addCase(searchProduct.rejected, (state, action) => {
         toast.error("Errors");
       });
   },

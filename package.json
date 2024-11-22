@@ -13,6 +13,7 @@
     "@types/node": "^16.18.112",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
+    "@uidotdev/usehooks": "^2.4.1",
     "admin-lte": "^4.0.0-beta2",
     "axios": "^1.7.7",
     "bootstrap": "4.6",
@@ -27,6 +28,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.6",
     "typescript": "^4.9.5",
+    "use-debounce": "^10.0.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
