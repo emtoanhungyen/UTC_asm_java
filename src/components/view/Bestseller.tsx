@@ -1,15 +1,20 @@
 import React from "react";
-import { useAppSelector } from "../../store/store";
-import ImgB1 from "./../../images/b1.jpg";
-import ImgB2 from "./../../images/b2.jpg";
-import ImgB3 from "./../../images/b3.jpg";
-import ImgB4 from "./../../images/b4.jpg";
+import { addToCart } from "../../redux/cart/cartSlice";
+import { IProduct } from "../../redux/products/productSlide";
+import { useAppDispatch, useAppSelector } from "../../store/store";
 
 type Props = {};
 
 const Bestseller = (props: Props) => {
   const listProducts = useAppSelector((state) => state.product.products);
-
+  const dispatch = useAppDispatch();
+  const handleAddToCart = (product: IProduct) => {
+    const cartItem = {
+      ...product,
+      quantity: 1,
+    };
+    dispatch(addToCart(cartItem));
+  };
   return (
     <div className="container">
       <h3 className="text-center mt-4 pt-5">Bestsellers</h3>
@@ -18,7 +23,11 @@ const Bestseller = (props: Props) => {
           <>
             <div className="col-md-6 col-lg-3 mb-4">
               <div className="">
-                <img className="img-fluid w-100" src={item.image} alt="Sample" />
+                <img
+                  className="img-fluid w-100"
+                  src={item.image}
+                  alt="Sample"
+                />
                 <a href="#!">
                   <div className="mask waves-effect waves-light" />
                 </a>
@@ -30,6 +39,7 @@ const Bestseller = (props: Props) => {
                 <button
                   type="button"
                   className="btn btn-primary btn-sm mr-1 waves-effect waves-light"
+                  onClick={() => handleAddToCart(item)}
                 >
                   <i className="fas fa-shopping-cart pr-2" />
                   Thêm vào giỏ

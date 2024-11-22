@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { addToCart } from "../../redux/cart/cartSlice";
 import { fetchProducts } from "../../redux/products/action";
 import { IProduct } from "../../redux/products/productSlide";
 import { useAppDispatch, useAppSelector } from "../../store/store";
@@ -10,10 +12,21 @@ type Props = {};
 const NewProduct = (props: Props) => {
   const dispatch = useAppDispatch();
   const listProducts = useAppSelector((state) => state.product.products);
+  const abc = useAppSelector((state) => state.cart.items);
+  console.log("abc", abc);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+
+  const handleAddToCart = (product: IProduct) => {
+    const cartItem = {
+      ...product,
+      quantity: 1,
+    };
+    dispatch(addToCart(cartItem));
+    toast.success("Thành công");
+  };
 
   return (
     <div className="container">
@@ -36,6 +49,7 @@ const NewProduct = (props: Props) => {
               <button
                 type="button"
                 className="btn btn-primary btn-sm mr-1 waves-effect waves-light"
+                onClick={() => handleAddToCart(item)}
               >
                 <i className="fas fa-shopping-cart pr-2" />
                 Thêm vào giỏ

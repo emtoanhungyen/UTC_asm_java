@@ -27,36 +27,6 @@ const SearchContent = (props: Props) => {
 
           <div className="col-lg-9">
             <div className="row">
-              {/* {listProducts.map((item: IProduct, index) => (
-                <div className="col-lg-4 col-md-6 mb-4">
-                  <div className="card h-100">
-                    <img
-                      className="card-img-top"
-                      src={item.image}
-                      width="100px"
-                      height="200px"
-                      style={{
-                        objectFit: "cover",
-                      }}
-                      alt="Sample"
-                    />
-                    <div className="card-body text-center">
-                      <h5 className="mb-0">{item.name}</h5>
-                      <h6>Số lượng: {item.quantity}</h6>
-                      <h6 className="mb-3">{item.price} vnd</h6>
-                    </div>
-                    <div className="card-footer text-center">
-                      <button
-                        type="button"
-                        className="btn btn-primary btn-sm mr-1 waves-effect waves-light"
-                      >
-                        <i className="fas fa-shopping-cart pr-2" />
-                        Thêm vào giỏ
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))} */}
               <div className="col-lg-4 col-md-6 mb-4">
                 <div className="card h-100">
                   <img

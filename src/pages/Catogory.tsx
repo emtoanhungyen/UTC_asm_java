@@ -6,6 +6,8 @@ import { fetchProducts, getProductByCategory } from "../redux/products/action";
 import { IProduct } from "../redux/products/productSlide";
 import { Link } from "react-router-dom";
 import { PATH } from "../routers/path";
+import { addToCart } from "../redux/cart/cartSlice";
+import { toast } from "react-toastify";
 type Props = {};
 
 const Category = (props: Props) => {
@@ -27,6 +29,14 @@ const Category = (props: Props) => {
       return dispatch(getProductByCategory(id));
     }
     return;
+  };
+  const handleAddToCart = (product: IProduct) => {
+    const cartItem = {
+      ...product,
+      quantity: 1,
+    };
+    dispatch(addToCart(cartItem));
+    toast.success("Thành công");
   };
 
   return (
@@ -102,6 +112,7 @@ const Category = (props: Props) => {
                     <button
                       type="button"
                       className="btn btn-primary btn-sm mr-1 waves-effect waves-light"
+                      onClick={() => handleAddToCart(item)}
                     >
                       <i className="fas fa-shopping-cart pr-2" />
                       Thêm vào giỏ

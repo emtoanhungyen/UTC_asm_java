@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { addToCart } from "../redux/cart/cartSlice";
 import { findProductById } from "../redux/products/action";
+import { IProduct } from "../redux/products/productSlide";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import ImgCafe from "./../images/cafe.jpg";
 
@@ -13,6 +16,15 @@ const Detail = (props: Props) => {
   useEffect(() => {
     if (id) dispatch(findProductById(Number(id)));
   }, []);
+
+  const handleAddToCart = (product: IProduct) => {
+    const cartItem = {
+      ...product,
+      quantity: 1,
+    };
+    dispatch(addToCart(cartItem));
+    toast.success("Thành công");
+  };
 
   return (
     <div>
@@ -55,11 +67,14 @@ const Detail = (props: Props) => {
                     <p className="price">{productDetail.price}vnd</p>
                     <h3>Số lượng</h3>
                     <p>{productDetail.quantity}</p>
-                    <p className="text-center buttons">
-                      <a href="basket.html" className="btn btn-primary">
-                        <i className="fa fa-shopping-cart" /> Add to cart
-                      </a>
-                    </p>
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-sm mr-1 waves-effect waves-light"
+                      onClick={() => handleAddToCart(productDetail)}
+                    >
+                      <i className="fas fa-shopping-cart pr-2" />
+                      Thêm vào giỏ
+                    </button>
                   </div>
                 </div>
                 <div className="box col-md-9">
