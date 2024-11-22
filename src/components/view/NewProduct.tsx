@@ -6,20 +6,26 @@ import { fetchProducts } from "../../redux/products/action";
 import { IProduct } from "../../redux/products/productSlide";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
+import { checkLogin } from "../../utils/checkLogin";
 import "./../../css/styleImage.css";
 type Props = {};
 
 const NewProduct = (props: Props) => {
   const dispatch = useAppDispatch();
   const listProducts = useAppSelector((state) => state.product.products);
-  const abc = useAppSelector((state) => state.cart.items);
-  console.log("abc", abc);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
   const handleAddToCart = (product: IProduct) => {
+    const token = localStorage.getItem("token");
+
+    const check = checkLogin(token);
+
+    if (!check) {
+      return toast.error("Bạn chưa đăng nhập.");
+    }
     const cartItem = {
       ...product,
       quantity: 1,

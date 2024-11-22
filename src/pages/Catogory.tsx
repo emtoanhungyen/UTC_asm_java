@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { PATH } from "../routers/path";
 import { addToCart } from "../redux/cart/cartSlice";
 import { toast } from "react-toastify";
+import { checkLogin } from "../utils/checkLogin";
 type Props = {};
 
 const Category = (props: Props) => {
@@ -31,6 +32,13 @@ const Category = (props: Props) => {
     return;
   };
   const handleAddToCart = (product: IProduct) => {
+    const token = localStorage.getItem("token");
+
+    const check = checkLogin(token);
+
+    if (!check) {
+      return toast.error("Bạn chưa đăng nhập.");
+    }
     const cartItem = {
       ...product,
       quantity: 1,

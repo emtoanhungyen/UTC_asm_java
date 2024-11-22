@@ -5,6 +5,7 @@ import { addToCart } from "../redux/cart/cartSlice";
 import { findProductById } from "../redux/products/action";
 import { IProduct } from "../redux/products/productSlide";
 import { useAppDispatch, useAppSelector } from "../store/store";
+import { checkLogin } from "../utils/checkLogin";
 import ImgCafe from "./../images/cafe.jpg";
 
 type Props = {};
@@ -18,6 +19,13 @@ const Detail = (props: Props) => {
   }, []);
 
   const handleAddToCart = (product: IProduct) => {
+    const token = localStorage.getItem("token");
+
+    const check = checkLogin(token);
+
+    if (!check) {
+      return toast.error("Bạn chưa đăng nhập.");
+    }
     const cartItem = {
       ...product,
       quantity: 1,

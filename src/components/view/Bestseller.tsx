@@ -1,19 +1,30 @@
 import React from "react";
+import { toast } from "react-toastify";
 import { addToCart } from "../../redux/cart/cartSlice";
 import { IProduct } from "../../redux/products/productSlide";
 import { useAppDispatch, useAppSelector } from "../../store/store";
+import { checkLogin } from "../../utils/checkLogin";
 
 type Props = {};
 
 const Bestseller = (props: Props) => {
   const listProducts = useAppSelector((state) => state.product.products);
   const dispatch = useAppDispatch();
+
   const handleAddToCart = (product: IProduct) => {
+    const token = localStorage.getItem("token");
+
+    const check = checkLogin(token);
+
+    if (!check) {
+      return toast.error("Bạn chưa đăng nhập.");
+    }
     const cartItem = {
       ...product,
       quantity: 1,
     };
     dispatch(addToCart(cartItem));
+    toast.success("Thành công");
   };
   return (
     <div className="container">
