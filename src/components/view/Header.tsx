@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../../features/auth/authActions";
+import { searchProduct } from "../../redux/products/action";
 import { PATH } from "../../routers/path";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 
@@ -12,28 +13,36 @@ interface FormData {
 }
 
 const Header = (props: Props) => {
-  const [valueSearch, setValueSearch] = useState<string>("");
   const { handleSubmit, register } = useForm<FormData>();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [role, setRole] = useState<string>("");
 
-  const handleValueSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValueSearch(event.target.value);
-  };
+  setTimeout(() => {
+    const role = localStorage.getItem("role");
+    if (role) {
+      setIsLogin(true);
+      setRole(role);
+    }
+    return;
+  }, 300);
 
-  const onSubmit = handleSubmit((data: FormData) => {
-    console.log("search", data);
-    // dispatch(get)
+  const onSubmit = handleSubmit(({ search }: FormData) => {
+    if (search) dispatch(searchProduct(search));
+    navigate(PATH.SEARCH);
   });
-  const role = localStorage.getItem("role");
-  console.log(role);
-
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-  console.log("isLoggedIn", isLoggedIn);
 
   const logout = () => {
-    console.log("logout");
-    dispatch(logoutUser());
+    try {
+      dispatch(logoutUser());
+      setIsLogin(false);
+      setRole("");
+    } catch (error) {
+      console.log("error-login", error);
+    }
   };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -90,9 +99,7 @@ const Header = (props: Props) => {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
-                value={valueSearch}
                 {...register("search")}
-                onChange={handleValueSearch}
               />
               <button
                 className="btn btn-outline-success my-1 my-sm-0"
@@ -108,23 +115,19 @@ const Header = (props: Props) => {
             id="navbarNavDropdown"
           >
             <ul className="navbar-nav">
-              <li className="nav-item pt-4">
-                {role ? (
-                  <li className="nav-item pt-4">
-                    <Link className="nav-link" to="" onClick={() => logout()}>
-                      Logout
-                    </Link>
-                  </li>
-                ) : (
-                  <>
-                    <li className="nav-item pt-4">
-                      <Link className="nav-link" to="/login">
-                        Sign in
-                      </Link>
-                    </li>
-                  </>
-                )}
-              </li>
+              {isLogin ? (
+                <li className="nav-item pt-4">
+                  <Link className="nav-link" to="" onClick={() => logout()}>
+                    Logout
+                  </Link>
+                </li>
+              ) : (
+                <li className="nav-item pt-4">
+                  <Link className="nav-link" to="/login">
+                    Sign in
+                  </Link>
+                </li>
+              )}
               <li className="nav-item pt-4">
                 <Link className="nav-link" to="/register">
                   Sign up

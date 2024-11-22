@@ -4,6 +4,8 @@ import { fetchCategory } from "../redux/categories/action";
 import { ICategory } from "../redux/categories/categorySlide";
 import { fetchProducts, getProductByCategory } from "../redux/products/action";
 import { IProduct } from "../redux/products/productSlide";
+import { Link } from "react-router-dom";
+import { PATH } from "../routers/path";
 type Props = {};
 
 const Category = (props: Props) => {
@@ -90,7 +92,9 @@ const Category = (props: Props) => {
                     alt="Sample"
                   />
                   <div className="card-body text-center">
-                    <h5 className="mb-0">{item.name}</h5>
+                    <h5 className="mb-0">
+                      <Link to={`${PATH.PRODUCT}/${item.id}`}>{item.name}</Link>
+                    </h5>
                     <h6>Số lượng: {item.quantity}</h6>
                     <h6 className="mb-3">{item.price} vnd</h6>
                   </div>

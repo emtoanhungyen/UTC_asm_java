@@ -26,6 +26,7 @@ interface ProductState {
   productDetail: IProduct;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: null;
+  searchProduct: IProduct[];
 }
 const initialState: ProductState = {
   products: [],
@@ -42,6 +43,7 @@ const initialState: ProductState = {
   },
   status: "idle",
   error: null,
+  searchProduct: [],
 };
 
 const productSlice = createSlice({
@@ -96,7 +98,7 @@ const productSlice = createSlice({
       })
       .addCase(searchProduct.pending, (state, action) => {})
       .addCase(searchProduct.fulfilled, (state, action) => {
-        // state.products = action.payload.payload;
+        state.searchProduct = action.payload.payload;
       })
       .addCase(searchProduct.rejected, (state, action) => {
         toast.error("Errors");

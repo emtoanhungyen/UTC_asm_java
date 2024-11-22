@@ -12,6 +12,8 @@ const TableProducts = (props: Props) => {
   const dispatch = useAppDispatch();
   const listProducts = useAppSelector((state) => state.product.products);
 
+  console.log(listProducts);
+
   const [showModal, setShowModal] = useState(false);
   const [idRemove, setIdRemove] = useState<number>();
 

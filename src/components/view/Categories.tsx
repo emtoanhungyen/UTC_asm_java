@@ -28,8 +28,10 @@ const Categories = (props: Props) => {
                 <div className="">
                   <div className="view zoom z-depht-2 rounded">
                     <img
-                      className="img-fluid"
-                      src={ImgVegetable}
+                      className="img-fluid rounded shadow"
+                      src={
+                        "https://res.cloudinary.com/dpu8oqhdq/image/upload/v1732194022/jlnp2vnj5mhg5nwgdnli.webp"
+                      }
                       alt="Sample"
                     />
                     <a href="#!" className="text-success">

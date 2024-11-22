@@ -106,6 +106,7 @@ const authSlice = createSlice({
       })
       .addCase(logoutUser.pending, (state, action) => {})
       .addCase(logoutUser.fulfilled, (state, action) => {
+        state.dataLogin = action.payload.data;
         console.log("logout", action.payload);
         toast.success("Logout successfully");
       })

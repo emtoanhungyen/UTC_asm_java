@@ -15,13 +15,31 @@ const Slider = (props: Props) => {
       >
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img src={ImgBanner1} className="d-block w-100" alt="" />
+            <img
+              src={
+                "https://res.cloudinary.com/dpu8oqhdq/image/upload/v1732193419/d2x6duqn9rpnkiluzih4.jpg"
+              }
+              className="d-block w-100"
+              alt=""
+            />
           </div>
+          {/* <div className="carousel-item">
+            <img
+              src={
+                "https://res.cloudinary.com/dpu8oqhdq/image/upload/v1732193418/vmzrwcvmz27rafoztxrz.jpg"
+              }
+              className="d-block w-100"
+              alt=""
+            />
+          </div> */}
           <div className="carousel-item">
-            <img src={ImgBanner2} className="d-block w-100" alt="" />
-          </div>
-          <div className="carousel-item">
-            <img src={ImgBanner3} className="d-block w-100" alt="" />
+            <img
+              src={
+                "https://res.cloudinary.com/dpu8oqhdq/image/upload/v1732193418/ctkqbro3yqvute6ma372.jpg"
+              }
+              className="d-block w-100"
+              alt=""
+            />
           </div>
         </div>
       </div>

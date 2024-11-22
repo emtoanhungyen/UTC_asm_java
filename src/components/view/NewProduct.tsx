@@ -28,7 +28,7 @@ const NewProduct = (props: Props) => {
               </a>
             </div>
             <div className="text-center pt-4">
-              <Link to={"/detail"}>
+              <Link to={`/product/${item.id}`}>
                 <h5 className="mb-0">{capitalizeFirstLetter(item.name)}</h5>
               </Link>
               <h5>({item.content})</h5>

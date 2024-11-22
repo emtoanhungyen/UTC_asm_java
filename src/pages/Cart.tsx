@@ -5,7 +5,7 @@ type Props = {};
 const Cart = (props: Props) => {
   return (
     <div>
-      <div className="container">
+      <div className="container pt-3 pb-3">
         <div className="row">
           <div className="col-lg-12">
             {/* breadcrumb*/}
@@ -150,25 +150,6 @@ const Cart = (props: Props) => {
                   </tbody>
                 </table>
               </div>
-            </div>
-            <div className="box">
-              <div className="box-header">
-                <h4 className="mb-0">Coupon code</h4>
-              </div>
-              <p className="text-muted">
-                If you have a coupon code, please enter it in the box below.
-              </p>
-              <form>
-                <div className="input-group">
-                  <input type="text" className="form-control" />
-                  <span className="input-group-append">
-                    <button type="button" className="btn btn-primary">
-                      <i className="fa fa-gift" />
-                    </button>
-                  </span>
-                </div>
-                {/* /input-group*/}
-              </form>
             </div>
           </div>
           {/* /.col-md-3*/}

@@ -16,9 +16,10 @@ import TableCategory from "./components/admin/Category/TableCategory";
 import TableProducts from "./components/admin/Products/TableProducts";
 import TableUsers from "./components/admin/Users/TableUsers";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import EditCategory from "./components/admin/Category/EditCategory";
 import EditProduct from "./components/admin/Products/EditProduct";
+import SearchContent from "./components/view/SearchContent";
 
 function App() {
   return (
@@ -26,9 +27,10 @@ function App() {
       <Routes>
         <Route path={PATH.HOME} element={<Container />}>
           <Route index element={<Home />} />
-          <Route path={PATH.DETAIL} element={<Detail />} />
+          <Route path={`${PATH.PRODUCT}/:id`} element={<Detail />} />
           <Route path={PATH.CATEGORY} element={<Category />} />
           <Route path={PATH.CART} element={<Cart />} />
+          <Route path={PATH.SEARCH} element={<SearchContent />} />
         </Route>
         {/* Admin */}
         <Route path={PATH.ADMIN} element={<LayoutAdmin />}>
@@ -36,8 +38,14 @@ function App() {
           <Route path={PATH.ADD_CATEGORY} element={<AddCategory />} />
           <Route path={PATH.ADMIN_PRODUCTS} element={<TableProducts />} />
           <Route path={PATH.ADD_PRODUCTS} element={<AddProduct />} />
-          <Route path={`${PATH.UPDATE_CATEGORY}/:id`} element={<EditCategory />} />
-          <Route path={`${PATH.UPDATE_PRODUCTS}/:id`} element={<EditProduct />} />
+          <Route
+            path={`${PATH.UPDATE_CATEGORY}/:id`}
+            element={<EditCategory />}
+          />
+          <Route
+            path={`${PATH.UPDATE_PRODUCTS}/:id`}
+            element={<EditProduct />}
+          />
           <Route path={PATH.ADMIN_USERS} element={<TableUsers />} />
           <Route path={PATH.ADD_USERS} element={<AddUser />} />
         </Route>
